@@ -1,4 +1,4 @@
-from . import state, models, templates
+from . import state, Models, templates
 from .pages import (
     about,
     custom,
