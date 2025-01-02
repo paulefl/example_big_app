@@ -16,7 +16,7 @@ on:
       - .github/workflows/build.yaml
 
 env:
-  DOCKER_IMAGE: example_big_app
+  DOCKER_IMAGE: paulefl/example_big_app
   # uncomment if using 
   # DOCKER_IMAGE: ${{ secrets.DOCKERHUB_REPO }}
 
@@ -48,7 +48,7 @@ jobs:
       run: |
         docker build -f Dockerfile.production -t ${{ env.DOCKER_IMAGE }}:latest .
         docker tag ${{ env.DOCKER_IMAGE }}:latest ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
-      # docker push ${{ env.DOCKER_IMAGE }} --all-tags
+        docker push ${{ env.DOCKER_IMAGE }} --all-tags
 
     - name: Remove build env file
       run: rm .build-env

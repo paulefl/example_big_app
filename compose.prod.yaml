@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.production
-    image: example_big_app:latest
+    image: paulefl/test:latest
     env_file:
       - .env
     ports:
@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.production
-    image: example_big_app:latest
+    image: paulefl/test:latest
     env_file:
       - .env
     ports:
