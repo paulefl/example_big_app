@@ -44,11 +44,26 @@ jobs:
          DATABASE_URL=${{ secrets.DATABASE_URL }}
          EOF
 
-    - name: Build and push
+    - name: Build and push - docker.io
       run: |
         docker build -f Dockerfile.production -t ${{ env.DOCKER_IMAGE }}:latest .
         docker tag ${{ env.DOCKER_IMAGE }}:latest ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
         docker push ${{ env.DOCKER_IMAGE }} --all-tags
+        
+    - name: Log in to the Container registry - ghcr.io
+      uses: docker/login-action@v3
+      with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.SEC_GITHUB_TOKEN }}
+          
+    - name: Build and push Docker image - ghcr.io
+      uses: docker/build-push-action@v6
+      with:
+          context: image/
+          file: Dockerfile.production
+          push: true
+          tags: ghcr.io/paulefl/${{ env.DOCKER_IMAGE }}:latest
 
     - name: Remove build env file
       run: rm .build-env
