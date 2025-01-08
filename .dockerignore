@@ -1,0 +1,9 @@
+*.db
+*.py[cod]
+__pycache__/
+assets/external/
+.env
+.env*
+venv/
+
+# Truncated to save space
